@@ -26,7 +26,9 @@ from the house's reads of the game's trophy page before the case's checkpoint.
   of neighbouring trophies in list order.
 - **Honest spread.** Quantiles from fit residuals (scaled by extrapolation
   leverage) plus refresh-timing uncertainty, with a floor so the band never
-  claims more than the data supports.
+  claims more than the data supports. The final spread is scaled by 0.65,
+  calibrated on synthetic final-regime and refresh-shock tests (v2); the
+  flat-history spread is scaled by the same factor.
 - **Flat-history prior.** When the history shows zero refreshes (launch
   night), the competition's own rules disclose the first refresh (638 →
   3,868 players, 943 → 4,276 trophies earned); that disclosed aggregate is
@@ -54,8 +56,12 @@ one `/output/<id>.out` per case (default `/output/`), JSON of the form
   disclosed refresh aggregates); the practice medians imply 4,272 total
   earners at 3,868 players vs the disclosed 4,276.
 - Synthetic final-regime test (a week of real curves, different functional
-  family from the model's fits): pinball loss 0.114, typical miss 0.76 pp,
-  90% coverage 0.96 — around the practice prize line (rank 20 = 0.127).
+  family from the model's fits): pinball loss 0.099 (seed A) / 0.095 (seed B),
+  typical miss 0.76 / 0.65 pp, 90% coverage 0.96 — v2 (spread scaled by 0.65;
+  v1 scored 0.114 / 0.115). Refresh-shock test (flat history, one refresh
+  jump, player-simulation truth): loss 0.097 (v1: 0.135). Server practice
+  grade (v1): rank 483 of 3,033, loss 0.181 — practice tests only the
+  90-minute refresh, not the final week's curves.
 
 ## License
 

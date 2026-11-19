@@ -262,7 +262,7 @@ function forecastCase(c: CaseInput): ForecastRow[] {
       const share: number = baseOthers > 0 ? last.earners[i] / baseOthers : 1 / Math.max(1, c.trophies.length - 1);
       const eStar: number = last.earners[i] + newOthers * share;
       const median: number = clamp((eStar * 100) / pStar, 0.01, 99.99);
-      rows.push({ id: c.trophies[i].id, q: quantilesFrom(median, 0.55) });
+      rows.push({ id: c.trophies[i].id, q: quantilesFrom(median, 0.3575) });
     }
     return rows;
   }
@@ -332,7 +332,7 @@ function forecastCase(c: CaseInput): ForecastRow[] {
     const sFit: number = residSd * leverage;
     const rateAtTarget: number = clamp((clamp(Math.exp(aShrunk + bShrunk * xFull), 0, pStar) * 100) / pStar, 0.01, 99.99);
     const sRefresh: number = 0.5 * Math.abs(logitPct(rateAtTarget) - logitPct(median));
-    const spread: number = clamp(Math.sqrt(sFit * sFit + sRefresh * sRefresh + 0.3 * 0.3), 0.3, 1.4);
+    const spread: number = clamp(Math.sqrt(sFit * sFit + sRefresh * sRefresh + 0.3 * 0.3), 0.3, 1.4) * 0.65;
     rows.push({ id: t.id, q: quantilesFrom(median, spread) });
   }
   return rows;
